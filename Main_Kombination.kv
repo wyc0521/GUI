@@ -1,0 +1,238 @@
+ScreenManager:
+    id:screen_manager
+
+    FirstScreen:
+        id:first_screen
+        #name:'MainWindow'
+        #manager: 'screen_manager'
+    SecondScreen:
+        id:second_screen
+        #name:'SecondWindow'
+        #manager: 'screen_manager'
+
+
+
+
+<FirstScreen@Screen>:
+    name:"main"
+
+    FloatLayout:
+        orientation: "horizontal"
+        cols: 1
+
+        BoxLayout:
+            size_hint:(None,None)
+            #width: 100
+            #height:50
+            pos_hint: {'x':.4, 'y':.5}
+            orientation:"vertical"
+
+            Label:
+                id:lbl
+                size_hint: (None,None)
+                size: (120,30)
+                pos_hint:{'center_x':0.5, 'center_y':0.5}
+                text:"[color=#ffffff]IP Address:"
+                markup:True
+                bold: True
+                size: (140,30)
+                font_size: '15sp'
+
+                canvas.before:
+                    Color:
+                        rgba: 115/255,115/255,115/255,1
+                    Rectangle:
+                        pos: self.pos
+                        size:self.size
+
+
+
+            TextInput:
+                id:IPAddress
+                size_hint: (None,None)
+                size: (140,30)
+                pos_hint:{'center_x':0.5, 'center_y':0.5}
+                #multiline: False
+                #focus: True
+                #on_text: app.process()
+
+        #Button:
+            #text:"connect"
+            #font_size:'20sp'
+            #background_color:(98/255,91/255,87/255,1)
+            #size_hint:(None,None)
+            #width: 100
+            #height:50
+            #pos_hint: {'x':.4, 'y':.3}
+            #on_press:app.get_IP()
+
+
+        Button:
+            text:"connect"
+            font_size:'15sp'
+            background_color:(98/255,91/255,87/255,1)
+            size_hint:(None,None)
+            width: 100
+            height:50
+            pos_hint: {'x':.4, 'y':.3}
+            on_press:app.set_IP()
+            on_release:
+                app.root.current = "second" if app.ResultFromIP == True else app.timeout()
+                root.manager.transition.direction = "left"
+
+
+
+
+
+
+<SecondScreen@Screen>:
+    name: "second"
+
+
+    GridLayout:
+        rows:2
+
+
+        FloatLayout:
+            orientation: "horizontal"
+            size_hint_y:0.4
+            cols: 4
+            spacing:90
+            padding:0
+
+            StopButton:
+				id:SB
+                size: 88, 88
+                size_hint: None, None
+                pos:(29,367)
+
+				canvas.before:
+					Color:
+						group: 'a'
+						rgba:30/255,30/255,30/255,1
+
+					RoundedRectangle:
+						pos:(30, 369)
+						size:(85,85)
+						radius:[50]
+
+                canvas.after:
+                    Color:
+                        rgba:70/255,70/255,70/255,1
+
+                    Line:
+                        width: 0.5
+                        circle:(73, 411, min(88, 88)/ 2)
+
+                    Line:
+                        width: 1.4
+                        circle:(73, 411.5, min(70, 70)/ 2)
+						
+					
+					
+
+            FloatLayout:
+                orientation:"horizontal"
+                cols:3
+                canvas.before:
+                    Color:
+                        #rgba:1,0,0,1
+                    Rectangle:
+                        pos:(130,360)
+                        #(194,360)
+                        size:(430.5,104)
+                        #(430.4, 104)
+                        source:'EasyControl_IOSONOinside_background.png'
+
+                Label:
+                    id:show_current_preset
+                    bold: True
+                    text: 'Preset'
+                    size_hint: (1, 0.17)
+                    pos:(-225,390)
+                    font_size:'20sp'
+
+
+                Label:
+                    bold: True
+					text:'192.168.178.34'
+                    #text: root.manager.ids.first_screen.ids.IPAddress.text
+                    font_size:'20sp'
+                    pos:(-60,335)
+
+
+                Label:
+                    id:show_current_volume
+                    bold: True
+                    text: '0.0 dB'
+                    font_size:'20sp'
+                    pos:(120,335)
+
+
+                #Display:
+                    #orientation:"horizontal"
+                    #cols:2
+
+                #VolumeSlider:
+                    #orientation:"vertical"
+                    ##cols:2
+                    #size_hint:(None, None)
+                    #pos_hint: {'x': 0.8, 'y': 0.3}
+
+            VolumeButton:
+                pos:(220,343)
+
+
+            MuteButton:
+                size: 88, 88
+                size_hint: None, None
+                pos:(685,367)
+
+
+
+
+
+        BoxLayout:
+            #padding:10
+            orientation: "vertical"
+
+            Label:
+
+                size_hint_y: None
+                text:"[color=#ffffff]Presets"
+                markup:True
+                bold: True
+                size: self.texture_size
+                font_size: '20sp'
+
+                canvas.before:
+                    Color:
+                        rgba: 95/255,95/255,95/255,1
+                    Rectangle:
+                        pos:(18.5,315)
+                        size:(700, 30)
+                        #self.pos
+                        #self.size
+
+            FloatLayout:
+
+
+                PresetButton:
+                    pos_hint_y:0.1
+                    rows:3
+                    cols:3
+                    padding:40
+                    spacing:35
+                    canvas.before:
+                        Color:
+                            rgba: 95/255,95/255,95/255,1
+                        Line:
+                            width: 1.4
+                            rectangle: (20, 46, 600, 295)
+
+                #previousPageButton:
+                    #pos:(290,100)
+
+                #nextPageButton:
+                   # pos:(290,-30)
+
