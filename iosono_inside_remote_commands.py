@@ -90,7 +90,7 @@ def startPresetByNumber(presetNumber):
             print("Preset No." + str(presetNumber) + " could not be started.")
             return False
     except:
-        print("No answer for startPresetByName(presetName)")
+        print("No answer for startPresetByNumber")
 
 def getCurrentPreset():
 # returns a string with the name of the currently running preset
